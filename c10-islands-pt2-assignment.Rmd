@@ -144,6 +144,32 @@ df_adult_counts %>%
 
 Conduct an EDA on your data. Add as many code chunks as you need. Ensure your EDA gives enough context of the data for us to understand what comes next in this report.
 
+```{r}
+filename_sample <- "./data/maeva_sample.csv"
+
+df_maeva <- 
+  read_csv(
+    filename_sample,
+    col_names = c(
+    "house",
+    "number_of_adults",
+    "adult_of_interest",
+    "name",
+    "age",
+    "total_friends",
+    "friends_lost",
+    "number_of_kids"
+    ),
+    col_select = c(1, 4, 5, 6, 7, 8),
+    skip = 1
+  ) %>% 
+  mutate(current_friends = total_friends - friends_lost) %>% 
+  select(house, name, age, total_friends, friends_lost, current_friends, number_of_kids)
+  
+df_maeva
+```
+
+
 ### __q3__ Key Analyses
 
 Present the key analyses that support your questions / hypotheses. This could include summary statistics (e.g., a proportion of Islanders), grouped summary statistics (e.g., a proportion for group A, and for group B), or visualizations (e.g., a histogram). This section should be short, and every analysis should directly relate to q4.
