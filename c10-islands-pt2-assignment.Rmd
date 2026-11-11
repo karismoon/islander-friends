@@ -145,6 +145,8 @@ df_adult_counts %>%
 Conduct an EDA on your data. Add as many code chunks as you need. Ensure your EDA gives enough context of the data for us to understand what comes next in this report.
 
 ```{r}
+# Import data
+
 filename_sample <- "./data/maeva_sample.csv"
 
 df_maeva <- 
@@ -158,15 +160,35 @@ df_maeva <-
     "age",
     "total_friends",
     "friends_lost",
-    "number_of_kids"
+    "kids"
     ),
     col_select = c(1, 4, 5, 6, 7, 8),
     skip = 1
   ) %>% 
   mutate(current_friends = total_friends - friends_lost) %>% 
-  select(house, name, age, total_friends, friends_lost, current_friends, number_of_kids)
+  select(house, name, age, total_friends, friends_lost, current_friends, kids)
   
 df_maeva
+```
+
+```{r}
+# Basic EDA on number of friends and number of kids
+
+df_maeva %>% 
+  ggplot(aes(age, kids)) +
+  geom_count()
+
+df_maeva %>% 
+  ggplot(aes(kids, current_friends)) +
+  geom_count()
+
+df_maeva %>% 
+  ggplot(aes(age, total_friends)) +
+  geom_point()
+
+df_maeva %>% 
+  ggplot(aes(kids, friends_lost)) +
+  geom_count()
 ```
 
 
