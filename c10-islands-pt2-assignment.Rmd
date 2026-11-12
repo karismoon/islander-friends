@@ -162,11 +162,11 @@ df_maeva <-
     "friends_lost",
     "kids"
     ),
-    col_select = c(1, 4, 5, 6, 7, 8),
     skip = 1
   ) %>% 
-  mutate(current_friends = total_friends - friends_lost) %>% 
-  select(house, name, age, total_friends, friends_lost, current_friends, kids)
+  mutate(current_friends = total_friends - friends_lost) %>%
+  filter(number_of_adults > 0) %>%
+  dplyr::select(house, name, age, total_friends, friends_lost, current_friends, kids)
   
 df_maeva
 ```
@@ -189,6 +189,43 @@ df_maeva %>%
 df_maeva %>% 
   ggplot(aes(kids, friends_lost)) +
   geom_count()
+```
+
+```{r}
+df_maeva %>%
+  ggplot(aes(x = as.factor(kids), y = total_friends)) +
+  geom_boxplot() +
+  labs(
+    title = "Relationship between number of kids and total friends",
+    x = "Number of kids",
+    y = "Total number of Friends"
+  )
+```
+
+```{r}
+
+df_maeva %>%
+  ggplot(aes(kids)) +
+  geom_bar() +
+  labs(
+    title = "Number of Adults Sampled With Same Number of Kids",
+    x = "Number of Kids",
+    y = "Number of Adults"
+  )
+
+```
+
+```{r}
+df_maeva %>% 
+  ggplot(aes(age, total_friends, size = kids)) +
+  geom_point(alpha = 0.5)
+
+df_maeva %>%
+  ggplot(aes(age, total_friends, color = factor(kids))) +
+  geom_line() +
+  labs(
+    title = "Age vs. Total Friends Per Number of Kids"
+  )
 ```
 
 
