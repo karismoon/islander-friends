@@ -63,14 +63,34 @@ While you provided this plan in c08 (Part 1), please include your plan here. In 
 - (What population are you going to study?)
   - All of the Islanders? Only the residents of Helvig? Participants meeting certain criteria (in which case, you need to list *covariates*)?
 
+We're studying Maeva residents age 18 and over.
+
 #### Quantity of interest
 
 - (Write your quantity of interest here)
+
+Correlation between number of kids and number of friends
 
 #### Covariates
 
 - (Write any relevant covariates here)
 - (There's probably more than one!)
+
+Age
+
+Job/wealth
+
+Disease
+
+Moving around
+
+Club participation
+
+Number of siblings
+
+Proximity to family
+
+We're removing the influence of confounding variables by randomly sampling.
 
 #### Observation or experiment?
 
@@ -78,11 +98,15 @@ The Islands allows you to ask islanders to complete tasks. If you just take meas
 
 - (Observation or experiment?)
 
+This is an observational study.
+
 #### Question / Hypothesis
 
 - (Write your question / hypothesis here)
   - This could be an observational question, like "How are X and Y related in the population?"
   - This could be an experimental question, like "What effect does X have on Y in the population?"
+
+How are number of children and number of friends related in the population?
 
 #### Sampling plan
 
@@ -93,6 +117,20 @@ The Islands allows you to ask islanders to complete tasks. If you just take meas
 - (For experiments only: How will you ensure any effects you observe are due to the treatment, and not due to other factors?)
 - (How will you choose your sample size?)
   - This should be a mix of how confident you want to be in your results, and what is actually *feasible* for your research team.
+
+Randomly pick 150 houses. We chose a sample size of 150 because that is our capacity as a team. Find out how many people are in each house, for each house randomly generate a number out of the number of the people in that house. Then collect the relevant data for that number person.
+
+Using a linear regression with one predictor coefficient, alpha = 0.05, f\^2 = 0.15 and total observations = 150, the estimated statistical power was 99.70%.
+
+Data to be collected:
+
+- Number of friends had
+
+- Number of friends lost
+
+- Age
+
+- Number of kids
 
 ## Data collection
 
@@ -266,7 +304,6 @@ df_maeva %>%
   geom_histogram(bins = 15)
 ```
 
-
 ```{r}
 df_maeva %>% 
   lm(
@@ -275,7 +312,6 @@ df_maeva %>%
   ) %>% 
   summary()
 ```
-
 
 ```{r}
 df_maeva %>%
@@ -290,7 +326,6 @@ df_maeva %>%
   summary()
 ```
 
-
 No reference group
 
 ```{r}
@@ -302,7 +337,6 @@ df_maeva %>%
   summary() %>% 
   tidy()
 ```
-
 
 ### **q3** Key Analyses
 
@@ -321,7 +355,7 @@ df_maeva %>%
   summary()
 ```
 
-Making a linear model using our data with number of kids and age as variables, we saw that people with 1, 2, 3, or 4 kids are all similar - the p-values of the correlations are very high, suggesting that there's no meaningful difference. 
+Making a linear model using our data with number of kids and age as variables, we saw that people with 1, 2, 3, or 4 kids are all similar - the p-values of the correlations are very high, suggesting that there's no meaningful difference.
 
 ```{r}
 
@@ -336,7 +370,7 @@ df_maeva %>%
 
 ```
 
-We are also unable to make conclusions about adults with 5 or 6 kids because our sample size is too small, with only one adult with 5 kids and three adults with 6 kids in our sample. 
+We are also unable to make conclusions about adults with 5 or 6 kids because our sample size is too small, with only one adult with 5 kids and three adults with 6 kids in our sample.
 
 ```{r}
 df_maeva %>% 
@@ -345,8 +379,7 @@ df_maeva %>%
   geom_count()
 ```
 
-
-Younger adults tend to have fewer kids, so we also controlled for age by adding it as a variable to the linear model. 
+Younger adults tend to have fewer kids, so we also controlled for age by adding it as a variable to the linear model.
 
 ```{r}
 df_maeva %>%
@@ -361,10 +394,10 @@ df_maeva %>%
   summary()
 ```
 
-Even after controlling for age, there is still a high correlation between having no kids and having fewer friends. 
+Even after controlling for age, there is still a high correlation between having no kids and having fewer friends.
 
 ### **q4** Answers
 
 Connect your Key Analyses to your questions / hypotheses. What did you conclude from your study?
 
-Having no kids has a high correlation with having fewer friends, even after controlling for age. 
+Having no kids has a high correlation with having fewer friends, even after controlling for age.

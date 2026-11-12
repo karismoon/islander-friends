@@ -62,26 +62,6 @@ all files uploaded to GitHub.**
 library(tidyverse)
 ```
 
-    ## Warning: package 'tidyverse' was built under R version 4.5.3
-
-    ## Warning: package 'ggplot2' was built under R version 4.5.3
-
-    ## Warning: package 'tibble' was built under R version 4.5.3
-
-    ## Warning: package 'tidyr' was built under R version 4.5.3
-
-    ## Warning: package 'readr' was built under R version 4.5.3
-
-    ## Warning: package 'purrr' was built under R version 4.5.3
-
-    ## Warning: package 'dplyr' was built under R version 4.5.3
-
-    ## Warning: package 'stringr' was built under R version 4.5.3
-
-    ## Warning: package 'forcats' was built under R version 4.5.3
-
-    ## Warning: package 'lubridate' was built under R version 4.5.3
-
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ dplyr     1.2.1     ✔ readr     2.2.0
     ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
@@ -95,17 +75,8 @@ library(tidyverse)
 
 ``` r
 library(rsample)
-```
-
-    ## Warning: package 'rsample' was built under R version 4.5.3
-
-``` r
 library(broom)
-```
 
-    ## Warning: package 'broom' was built under R version 4.5.3
-
-``` r
 # TODO: Include any other packages you need
 ```
 
@@ -122,14 +93,35 @@ feedback.
     meeting certain criteria (in which case, you need to list
     *covariates*)?
 
+We’re studying Maeva residents age 18 and over.
+
 #### Quantity of interest
 
 - (Write your quantity of interest here)
+
+Correlation between number of kids and number of friends
 
 #### Covariates
 
 - (Write any relevant covariates here)
 - (There’s probably more than one!)
+
+Age
+
+Job/wealth
+
+Disease
+
+Moving around
+
+Club participation
+
+Number of siblings
+
+Proximity to family
+
+We’re removing the influence of confounding variables by randomly
+sampling.
 
 #### Observation or experiment?
 
@@ -142,6 +134,8 @@ study is observational or experimental.
 
 - (Observation or experiment?)
 
+This is an observational study.
+
 #### Question / Hypothesis
 
 - (Write your question / hypothesis here)
@@ -149,6 +143,9 @@ study is observational or experimental.
     related in the population?”
   - This could be an experimental question, like “What effect does X
     have on Y in the population?”
+
+How are number of children and number of friends related in the
+population?
 
 #### Sampling plan
 
@@ -166,6 +163,25 @@ study is observational or experimental.
 - (How will you choose your sample size?)
   - This should be a mix of how confident you want to be in your
     results, and what is actually *feasible* for your research team.
+
+Randomly pick 150 houses. We chose a sample size of 150 because that is
+our capacity as a team. Find out how many people are in each house, for
+each house randomly generate a number out of the number of the people in
+that house. Then collect the relevant data for that number person.
+
+Using a linear regression with one predictor coefficient, alpha = 0.05,
+f^2 = 0.15 and total observations = 150, the estimated statistical power
+was 99.70%.
+
+Data to be collected:
+
+- Number of friends had
+
+- Number of friends lost
+
+- Age
+
+- Number of kids
 
 ## Data collection
 
