@@ -217,8 +217,12 @@ df_maeva %>%
 
 ```{r}
 df_maeva %>% 
-  ggplot(aes(age, total_friends, size = kids)) +
-  geom_point(alpha = 0.5)
+  ggplot(aes(age, total_friends, color = factor(kids))) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Age vs. Total Friends Per Number of Kids Trends"
+  )
 
 df_maeva %>%
   ggplot(aes(age, total_friends, color = factor(kids))) +
