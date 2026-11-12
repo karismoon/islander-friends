@@ -100,6 +100,12 @@ library(rsample)
     ## Warning: package 'rsample' was built under R version 4.5.3
 
 ``` r
+library(broom)
+```
+
+    ## Warning: package 'broom' was built under R version 4.5.3
+
+``` r
 # TODO: Include any other packages you need
 ```
 
@@ -445,6 +451,95 @@ df_maeva %>%
 
 ![](c10-islands-pt2-assignment_files/figure-gfm/unnamed-chunk-8-6.png)<!-- -->
 
+``` r
+df_maeva %>% 
+  lm(
+    formula = current_friends ~ kids,
+    data = .
+  ) %>% 
+  summary()
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = current_friends ~ kids, data = .)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -11.8315  -3.8315  -0.8315   3.2996  15.9062 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)  14.7004     0.7704   19.08  < 2e-16 ***
+    ## kids          1.0656     0.3088    3.45 0.000733 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 5.636 on 146 degrees of freedom
+    ## Multiple R-squared:  0.07538,    Adjusted R-squared:  0.06905 
+    ## F-statistic:  11.9 on 1 and 146 DF,  p-value: 0.0007328
+
+``` r
+df_maeva %>%
+  mutate(
+    kids = as_factor(kids) %>% 
+      fct_relevel(., "1")
+  ) %>% 
+  lm(
+    formula = current_friends ~ kids + age,
+    data = .
+  ) %>%
+  summary()
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = current_friends ~ kids + age, data = .)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -14.1873  -3.4712  -0.2882   3.2279  12.2831 
+    ## 
+    ## Coefficients:
+    ##              Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)  13.12863    1.57554   8.333 6.57e-14 ***
+    ## kids0        -3.26135    1.44194  -2.262 0.025252 *  
+    ## kids2        -0.22318    1.42343  -0.157 0.875638    
+    ## kids3        -0.45890    1.48806  -0.308 0.758245    
+    ## kids4        -0.25491    1.58945  -0.160 0.872816    
+    ## kids5       -11.42189    5.47176  -2.087 0.038662 *  
+    ## kids6         7.93798    3.26246   2.433 0.016230 *  
+    ## age           0.10114    0.02588   3.908 0.000144 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 5.259 on 140 degrees of freedom
+    ## Multiple R-squared:  0.2281, Adjusted R-squared:  0.1895 
+    ## F-statistic:  5.91 on 7 and 140 DF,  p-value: 4.947e-06
+
+No reference group
+
+``` r
+df_maeva %>% 
+  lm(
+    formula = current_friends ~ as_factor(kids) + 0,
+    data = .
+  ) %>% 
+  summary() %>% 
+  tidy()
+```
+
+    ## # A tibble: 7 × 5
+    ##   term             estimate std.error statistic  p.value
+    ##   <chr>               <dbl>     <dbl>     <dbl>    <dbl>
+    ## 1 as_factor(kids)0     13.8     0.946     14.6  5.24e-30
+    ## 2 as_factor(kids)1     17.5     1.18      14.8  1.38e-30
+    ## 3 as_factor(kids)2     17.4     0.920     18.9  2.02e-40
+    ## 4 as_factor(kids)3     17.7     1.01      17.6  2.09e-37
+    ## 5 as_factor(kids)4     17.6     1.18      15.0  5.61e-31
+    ## 6 as_factor(kids)5     10       5.52       1.81 7.21e- 2
+    ## 7 as_factor(kids)6     27       3.19       8.47 2.83e-14
+
 ### **q3** Key Analyses
 
 Present the key analyses that support your questions / hypotheses. This
@@ -453,7 +548,122 @@ grouped summary statistics (e.g., a proportion for group A, and for
 group B), or visualizations (e.g., a histogram). This section should be
 short, and every analysis should directly relate to q4.
 
+``` r
+df_maeva %>%
+  mutate(
+    kids = as_factor(kids) %>% 
+      fct_relevel(., "1")
+  ) %>% 
+  lm(
+    formula = current_friends ~ kids,
+    data = .
+  ) %>%
+  summary()
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = current_friends ~ kids, data = .)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -13.0000  -3.6364  -0.6848   2.7292  11.5455 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) 17.45455    1.17650  14.836  < 2e-16 ***
+    ## kids0       -3.63102    1.50990  -2.405  0.01748 *  
+    ## kids2       -0.09343    1.49333  -0.063  0.95020    
+    ## kids3        0.27879    1.54894   0.180  0.85742    
+    ## kids4        0.18182    1.66383   0.109  0.91314    
+    ## kids5       -7.45455    5.64231  -1.321  0.18858    
+    ## kids6        9.54545    3.39627   2.811  0.00565 ** 
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 5.518 on 141 degrees of freedom
+    ## Multiple R-squared:  0.1439, Adjusted R-squared:  0.1075 
+    ## F-statistic:  3.95 on 6 and 141 DF,  p-value: 0.001107
+
+Making a linear model using our data with number of kids and age as
+variables, we saw that people with 1, 2, 3, or 4 kids are all similar -
+the p-values of the correlations are very high, suggesting that there’s
+no meaningful difference.
+
+``` r
+df_maeva %>%
+  ggplot(aes(kids)) +
+  geom_bar() +
+  labs(
+    title = "Number of Adults Sampled With Same Number of Kids",
+    x = "Number of Kids",
+    y = "Number of Adults"
+  )
+```
+
+![](c10-islands-pt2-assignment_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+We are also unable to make conclusions about adults with 5 or 6 kids
+because our sample size is too small, with only one adult with 5 kids
+and three adults with 6 kids in our sample.
+
+``` r
+df_maeva %>% 
+  ggplot(aes(age, kids)) +
+  geom_boxplot(aes(group = kids)) +
+  geom_count()
+```
+
+![](c10-islands-pt2-assignment_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+Younger adults tend to have fewer kids, so we also controlled for age by
+adding it as a variable to the linear model.
+
+``` r
+df_maeva %>%
+  mutate(
+    kids = as_factor(kids) %>% 
+      fct_relevel(., "1")
+  ) %>% 
+  lm(
+    formula = current_friends ~ kids + age,
+    data = .
+  ) %>%
+  summary()
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = current_friends ~ kids + age, data = .)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -14.1873  -3.4712  -0.2882   3.2279  12.2831 
+    ## 
+    ## Coefficients:
+    ##              Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)  13.12863    1.57554   8.333 6.57e-14 ***
+    ## kids0        -3.26135    1.44194  -2.262 0.025252 *  
+    ## kids2        -0.22318    1.42343  -0.157 0.875638    
+    ## kids3        -0.45890    1.48806  -0.308 0.758245    
+    ## kids4        -0.25491    1.58945  -0.160 0.872816    
+    ## kids5       -11.42189    5.47176  -2.087 0.038662 *  
+    ## kids6         7.93798    3.26246   2.433 0.016230 *  
+    ## age           0.10114    0.02588   3.908 0.000144 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 5.259 on 140 degrees of freedom
+    ## Multiple R-squared:  0.2281, Adjusted R-squared:  0.1895 
+    ## F-statistic:  5.91 on 7 and 140 DF,  p-value: 4.947e-06
+
+Even after controlling for age, there is still a high correlation
+between having no kids and having fewer friends.
+
 ### **q4** Answers
 
 Connect your Key Analyses to your questions / hypotheses. What did you
 conclude from your study?
+
+Having no kids has a high correlation with having fewer friends, even
+after controlling for age.

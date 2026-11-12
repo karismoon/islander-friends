@@ -308,6 +308,63 @@ df_maeva %>%
 
 Present the key analyses that support your questions / hypotheses. This could include summary statistics (e.g., a proportion of Islanders), grouped summary statistics (e.g., a proportion for group A, and for group B), or visualizations (e.g., a histogram). This section should be short, and every analysis should directly relate to q4.
 
+```{r}
+df_maeva %>%
+  mutate(
+    kids = as_factor(kids) %>% 
+      fct_relevel(., "1")
+  ) %>% 
+  lm(
+    formula = current_friends ~ kids,
+    data = .
+  ) %>%
+  summary()
+```
+
+Making a linear model using our data with number of kids and age as variables, we saw that people with 1, 2, 3, or 4 kids are all similar - the p-values of the correlations are very high, suggesting that there's no meaningful difference. 
+
+```{r}
+
+df_maeva %>%
+  ggplot(aes(kids)) +
+  geom_bar() +
+  labs(
+    title = "Number of Adults Sampled With Same Number of Kids",
+    x = "Number of Kids",
+    y = "Number of Adults"
+  )
+
+```
+
+We are also unable to make conclusions about adults with 5 or 6 kids because our sample size is too small, with only one adult with 5 kids and three adults with 6 kids in our sample. 
+
+```{r}
+df_maeva %>% 
+  ggplot(aes(age, kids)) +
+  geom_boxplot(aes(group = kids)) +
+  geom_count()
+```
+
+
+Younger adults tend to have fewer kids, so we also controlled for age by adding it as a variable to the linear model. 
+
+```{r}
+df_maeva %>%
+  mutate(
+    kids = as_factor(kids) %>% 
+      fct_relevel(., "1")
+  ) %>% 
+  lm(
+    formula = current_friends ~ kids + age,
+    data = .
+  ) %>%
+  summary()
+```
+
+Even after controlling for age, there is still a high correlation between having no kids and having fewer friends. 
+
 ### **q4** Answers
 
 Connect your Key Analyses to your questions / hypotheses. What did you conclude from your study?
+
+Having no kids has a high correlation with having fewer friends, even after controlling for age. 
