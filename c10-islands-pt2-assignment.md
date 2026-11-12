@@ -8,10 +8,9 @@ Arianne, Laurel, Karis
   - [Submission](#submission)
 - [Setup](#setup)
   - [**q1** Planning a study (TEAMWORK)](#q1-planning-a-study-teamwork)
-  - [Data collection](#data-collection)
-    - [**q2** EDA](#q2-eda)
-    - [**q3** Key Analyses](#q3-key-analyses)
-    - [**q4** Answers](#q4-answers)
+  - [**q2** EDA](#q2-eda)
+  - [**q3** Key Analyses](#q3-key-analyses)
+  - [**q4** Answers](#q4-answers)
 
 *Purpose*: This is part 2 of 2. In part 1 you *planed* your statistical
 project, particularly your data collection. In this part you will give
