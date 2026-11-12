@@ -49,6 +49,7 @@ Make sure to commit both the challenge report (`report.md` file) and supporting 
 ```{r setup}
 library(tidyverse)
 library(rsample)
+library(broom)
 
 # TODO: Include any other packages you need
 ```
@@ -264,6 +265,44 @@ df_maeva %>%
   ggplot(aes(ratio_friends)) +
   geom_histogram(bins = 15)
 ```
+
+
+```{r}
+df_maeva %>% 
+  lm(
+    formula = current_friends ~ kids,
+    data = .
+  ) %>% 
+  summary()
+```
+
+
+```{r}
+df_maeva %>%
+  mutate(
+    kids = as_factor(kids) %>% 
+      fct_relevel(., "1")
+  ) %>% 
+  lm(
+    formula = current_friends ~ kids + age,
+    data = .
+  ) %>%
+  summary()
+```
+
+
+No reference group
+
+```{r}
+df_maeva %>% 
+  lm(
+    formula = current_friends ~ as_factor(kids) + 0,
+    data = .
+  ) %>% 
+  summary() %>% 
+  tidy()
+```
+
 
 ### **q3** Key Analyses
 
