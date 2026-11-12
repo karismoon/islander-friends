@@ -94,7 +94,7 @@ The Islands allows you to ask islanders to complete tasks. If you just take meas
 - (How will you choose your sample size?)
   - This should be a mix of how confident you want to be in your results, and what is actually *feasible* for your research team.
 
-## Data collection
+#### Data collection
 
 ```{r}
 ## Select a random sample of houses
